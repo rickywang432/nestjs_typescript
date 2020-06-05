@@ -1,0 +1,32 @@
+import { Connection, EntityManager } from "typeorm";
+
+/**
+ * Provides access to stored procedures/
+ */
+export namespace StoredProcedures {
+    /**
+     * Returns the ID of the team to which one or more members belong.
+     * @param conn DB connection.
+     * @param memberNameIds Member name IDs.
+     * @returns The ID of the team or `undefined` if no team was found.
+     */
+    export async function getTeamId(conn: Connection | EntityManager, memberNameIds: string[]): Promise<number | undefined> {
+        /*
+        const result = await conn.createQueryBuilder()
+            .from('g')
+            .select('get_team_id(:ids)')
+            .setParameter('ids', memberNameIds)
+            .getOne();
+            */
+        /*
+     const result = await conn.query('select get_team_id(?)', [memberNameIds]);
+     console.log(result);
+     */
+        const result = await conn.createQueryBuilder()
+            .select('get_team_id(:ids)', 'v')
+            .setParameter('ids', memberNameIds)
+            .getOne();
+
+        return result;
+    }
+}

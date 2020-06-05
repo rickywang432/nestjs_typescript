@@ -1,0 +1,26 @@
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { DbDataType } from './db-data-type';
+
+/**
+ * Contains information about a region.
+ */
+@Entity('game_region')
+export class GameRegionEntity {
+    /**
+     * ID.
+     */
+    @PrimaryGeneratedColumn('increment', { name: 'id', type: DbDataType.SmallInt })
+    id: number;
+
+    /**
+     * Name.
+     */
+    @Column(DbDataType.String, { name: 'name' })
+    name: string;
+
+    /**
+     * Short name.
+     */
+    @Column(DbDataType.String, { name: 'short_name' })
+    shortName: string;
+}
